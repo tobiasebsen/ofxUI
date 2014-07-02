@@ -482,3 +482,38 @@ bool ofxUIDropDownList::isOpen()
 {
     return *value;
 }
+
+
+void ofxUIDropDownList::saveState(ofxXmlSettings *XML)
+{
+    std::stringstream ss;
+    vector<int>::iterator it = selectedIndeces.begin();
+    for (; it != selectedIndeces.end(); ++it) {
+        ss << *it;
+        if (it != selectedIndeces.end() - 1)
+            ss << ",";
+    }
+
+    XML->setValue("Value", ss.str(), 0);
+}
+
+void ofxUIDropDownList::loadState(ofxXmlSettings *XML)
+{
+    selected.clear();
+    selectedIndeces.clear();
+
+    string value = XML->getValue("Value", "", 0);
+    vector<string> values = ofSplitString(value, ",");
+    vector<string>::iterator it = values.begin();
+    for (; it != values.end(); ++it) {
+        int i = ofToInt(*it);
+        selectedIndeces.push_back(i);
+        ofxUILabelToggle *t = toggles[i];
+        selected.push_back(t);
+    }
+
+    checkAndSetTitleLabel();
+
+    if(parent != NULL)
+        parent->triggerEvent(this);
+}

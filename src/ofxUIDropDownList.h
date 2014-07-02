@@ -64,7 +64,11 @@ public:
     virtual void setValue(bool _value);
     virtual void setModal(bool _modal);      
     bool isOpen();
-    
+#ifndef OFX_UI_NO_XML
+    virtual void saveState(ofxXmlSettings *XML);
+    virtual void loadState(ofxXmlSettings *XML);
+#endif
+   
 protected:
     bool autoSize; 
     bool autoClose;
