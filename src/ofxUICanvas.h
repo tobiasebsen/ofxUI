@@ -36,9 +36,11 @@ class ofxUICanvas : public ofxUIWidget, public ofxUIAppCBGlue
 {
 public:
     ~ofxUICanvas();
+    //Default Constructor:
     ofxUICanvas(float defaultWidthSize = OFX_UI_GLOBAL_CANVAS_WIDTH, float defaultHeightSize = OFX_UI_GLOBAL_CANVAS_WIDTH);
     ofxUICanvas(const ofxUICanvas &other);              // Mitchell Nordine 2/2/14
     ofxUICanvas& operator=(const ofxUICanvas &other);   // Mitchell Nordine 2/2/14
+    
     ofxUICanvas(ofxUIRectangle r);
     ofxUICanvas(float x, float y, float w, float h);
     ofxUICanvas(float x, float y, float w, float h, ofxUICanvas *sharedResources);
@@ -210,7 +212,7 @@ public:
     ofxUIDropDownList* addDropDownList(string _name, vector<string> items);
     ofxUIDropDownList* addDropDownList(string _name, vector<string> items, float w, float x = 0, float y = 0);
 
-    ofxUIWaveform* addWaveform(string _name, float *_buffer, int _bufferSize, float _min = -1.0, float _max = 1.0, float _h = OFX_UI_GLOBAL_GRAPH_HEIGHT);
+    ofxUIWaveform* addWaveform(string _name, float *_buffer, int _bufferSize, float _min = -1.0, float _max = 1.0, float _h = -1);
     ofxUIWaveform* addWaveform(string _name, float *_buffer, int _bufferSize, float _min, float _max, float _w, float _h);
     
     ofxUISpectrum* addSpectrum(string _name, float *_buffer, int _bufferSize, float _min = 0.0, float _max = 1.0, float _h = OFX_UI_GLOBAL_GRAPH_HEIGHT);
@@ -327,10 +329,9 @@ protected:
 	ofxUIFont *font_large;
 	ofxUIFont *font_medium; 		
 	ofxUIFont *font_small;
+    ofxUIEventArgs *GUIevent;
+
     bool bInsideCanvas;
- 	
-	ofxUIEventArgs *GUIevent; 
-    int state;
     bool hasSharedResources;
     bool autoDraw;
     bool autoUpdate;
@@ -340,8 +341,8 @@ protected:
     map<string, ofxUIWidget*> widgetsAreModal;
 	vector<ofxUIWidget*> widgetsWithState;
 	vector<ofxUIWidget*> lastAddeds; 
-	ofxUIWidget *activeFocusedWidget; 
-	bool enable_highlight_outline; 
+
+	bool enable_highlight_outline;
 	bool enable_highlight_fill;
 	bool enabled;
     bool bTriggerWidgetsUponLoad;
