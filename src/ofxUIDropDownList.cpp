@@ -513,7 +513,4 @@ void ofxUIDropDownList::loadState(ofxXmlSettings *XML)
     }
 
     checkAndSetTitleLabel();
-
-    if(parent != NULL)
-        parent->triggerEvent(this);
 }
