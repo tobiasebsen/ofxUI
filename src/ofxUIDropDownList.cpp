@@ -503,13 +503,15 @@ void ofxUIDropDownList::loadState(ofxXmlSettings *XML)
     selectedIndeces.clear();
 
     string value = XML->getValue("Value", "", 0);
-    vector<string> values = ofSplitString(value, ",");
-    vector<string>::iterator it = values.begin();
-    for (; it != values.end(); ++it) {
-        int i = ofToInt(*it);
-        selectedIndeces.push_back(i);
-        ofxUILabelToggle *t = toggles[i];
-        selected.push_back(t);
+    if (value != "") {
+        vector<string> values = ofSplitString(value, ",");
+        vector<string>::iterator it = values.begin();
+        for (; it != values.end(); ++it) {
+            int i = ofToInt(*it);
+            selectedIndeces.push_back(i);
+            ofxUILabelToggle *t = toggles[i];
+            selected.push_back(t);
+        }
     }
 
     checkAndSetTitleLabel();
